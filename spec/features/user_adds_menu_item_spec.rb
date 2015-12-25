@@ -36,21 +36,16 @@ RSpec.describe 'a user adds a new menu item' do
 
       click_on "Create Menu item"
 
-      within ".input.menu_item_name" do
-        expect(page).to have_content "can't be blank"
-      end
-
-      within ".input.menu_item_description" do
-        expect(page).to have_content "can't be blank"
-      end
-
-      within ".input.menu_item_price_in_cents" do
-        expect(page).to have_content "can't be blank"
-      end
-
-      within ".input.menu_item_category" do
-        expect(page).to have_content "can't be blank"
-      end
+      expect_presence_error_for(:name)
+      expect_presence_error_for(:description)
+      expect_presence_error_for(:price_in_cents)
+      expect_presence_error_for(:category)
     end
+  end
+end
+
+def expect_presence_error_for(attribute)
+  within ".input.menu_item_#{attribute.to_s}" do
+    expect(page).to have_content "can't be blank"
   end
 end
