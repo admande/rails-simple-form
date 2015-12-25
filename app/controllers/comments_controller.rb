@@ -4,8 +4,8 @@ class CommentsController < ApplicationController
     @comment = @menu_item.comments.build(comment_params)
 
     if @comment.save
-      redirect_to menu_item_path(@menu_item),
-        success: "Your comment was created successfully."
+      flash[:success] = "Your comment was created successfully."
+      redirect_to menu_item_path(@menu_item)
     else
       flash.now[:success] = "There was an issue with your comment. Please try again."
       render action: "../menu_items/show"

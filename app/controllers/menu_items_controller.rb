@@ -20,8 +20,8 @@ class MenuItemsController < ApplicationController
     @menu_item = MenuItem.new(menu_item_params)
 
     if @menu_item.save
-      redirect_to menu_item_path(@menu_item),
-        success: "Menu item created successfully!"
+      flash[:success] = "Menu item created successfully!"
+      redirect_to menu_item_path(@menu_item)
     else
       render :new
     end
@@ -31,8 +31,8 @@ class MenuItemsController < ApplicationController
     @menu_item = MenuItem.new(menu_item_params)
 
     if @menu_item.update(menu_item_params)
-      redirect_to menu_item_path(@menu_item),
-        success: 'Menu item was successfully updated!! Hooray'
+      flash[:success] = 'Menu item was successfully updated!! Hooray'
+      redirect_to menu_item_path(@menu_item)
     else
       render action: 'edit'
     end
@@ -40,8 +40,8 @@ class MenuItemsController < ApplicationController
 
   def destroy
     MenuItem.find(params[:id]).destroy
-    redirect_to menu_items_path,
-      success: "Menu item was successfully destroyed"
+    flash[:success] = "Menu item was successfully destroyed"
+    redirect_to menu_items_path
   end
 
   private
